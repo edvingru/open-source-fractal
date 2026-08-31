@@ -648,7 +648,7 @@ method checkC4Invalid(C2Setup s) =>
 
 method checkCisdConfirm(C2Setup s) =>
     if not na(s) and not s.dead and not s.cisdConfirmed and s.phase != 0 and not na(s.cisdLevel) and not na(s.cisdIndex)
-        confirmed = s.isBull ? close > s.cisdLevel : close < s.cisdLevel
+        confirmed = s.isBull ? close[1] > s.cisdLevel : close[1] < s.cisdLevel
         if confirmed
             if s.phase == 2
                 s.cisdConfirmedInC4 := true
@@ -760,7 +760,7 @@ newBullLevel = not na(bullIndexFixed) and (na(bullIndexFixed[1]) or bullIndexFix
 if newBullLevel
     bullReclaimed  := false
     bullReclaimBar := na
-if not na(bullLevelFixed) and not bullReclaimed and close > bullLevelFixed
+if not na(bullLevelFixed) and not bullReclaimed and close[1] > bullLevelFixed
     bullReclaimed  := true
     bullReclaimBar := bar_index
     if bullPeriodSweep
@@ -770,7 +770,7 @@ newBearLevel = not na(bearIndexFixed) and (na(bearIndexFixed[1]) or bearIndexFix
 if newBearLevel
     bearReclaimed  := false
     bearReclaimBar := na
-if not na(bearLevelFixed) and not bearReclaimed and close < bearLevelFixed
+if not na(bearLevelFixed) and not bearReclaimed and close[1] < bearLevelFixed
     bearReclaimed  := true
     bearReclaimBar := bar_index
     if bearPeriodSweep
